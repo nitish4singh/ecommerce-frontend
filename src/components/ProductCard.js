@@ -12,20 +12,20 @@ const ProductCard = (props) => {
   const { grid } = props;
   console.log(grid);
   let location = useLocation();
-
+  console.log(location);
   return (
     <>
       <div
         className={` ${
-          location.pathname === "/product" ? `gr-${grid}` : "col-3"
+          location.pathname === "/store" ? `gr-${grid}` : "col-3"
         } `}
       >
         <Link
           to={`${
             location.pathname === "/"
-              ? "/product/:id"
-              : location.pathname === "/product/:id"
-              ? "/product/:id"
+              ? "/store/:id"
+              : location.pathname === "/store/:id"
+              ? "/store/:id"
               : ":id"
           }`}
           className="product-card position-relative"
