@@ -14,9 +14,12 @@ import Forgetpassword from "./pages/Forgetpassword";
 import Resetpassword from "./pages/Resetpassword";
 import SingleBlog from "./pages/SingleBlog";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ShippingPolicy from "./pages/ShippingPolicy";
+import ShippingPolicy from "./pages/ShippingPolicy1";
 import TermAndContions from "./pages/TermAndCondition";
 import RefundPolicy from "./pages/RefundPolicy";
+import SingleProduct from "./pages/singleProduct";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <>
@@ -29,8 +32,11 @@ function App() {
             <Route path="blogs" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
             <Route path="store" element={<OurStore />} />
+            <Route path="product/:id" element={<SingleProduct />} />
             <Route path="compare-product" element={<CompareProduct />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="wishlist" element={<Wishlist />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="forgot-password" element={<Forgetpassword />} />

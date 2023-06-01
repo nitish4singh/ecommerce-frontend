@@ -5,6 +5,7 @@ import BlogCard from "../components/BlogsCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
+import { services } from "../components/Dataa";
 
 export const Home = () => {
   return (
@@ -88,7 +89,7 @@ export const Home = () => {
           </div>
         </div>
       </Container>
-      {/* <Container class1="home-wrapper-2 py-5">
+      <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="servies d-flex align-items-center justify-content-between">
@@ -106,7 +107,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
-      </Container> */}
+      </Container>
       <Container class1="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
