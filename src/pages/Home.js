@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import BlogCard from "../components/BlogsCard";
+import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import { services } from "../components/Dataa";
+import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBlogs } from "../features/blogs/blogSlice";
+import {  useLocation, useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const blogState = useSelector((state) => state?.blog?.blog);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getblogs();
+  }, []);
+  const getblogs = () => {
+    dispatch(getAllBlogs());
+  };
+
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -317,18 +332,24 @@ export const Home = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
-          <div className="col-3">
-            <BlogCard />
-          </div>
+          {blogState &&
+            blogState?.map((item, index) => {
+              if (index < 3) {
+                return (
+                  <div className="col-3 " key={index}>
+                    <BlogCard
+                      id={item?._id}
+                      title={item?.title}
+                      description={item?.description}
+                      image={item?.images[0]?.url}
+                      date={moment(item?.createdAt).format(
+                        "MMMM Do YYYY, h:mm a"
+                      )}
+                    />
+                  </div>
+                );
+              }
+            })}
         </div>
       </Container>
     </>
