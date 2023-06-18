@@ -25,12 +25,12 @@ const Checkout = () => {
   const cartState = useSelector((state) => state.auth.cartProducts);
   const [totalAmount, setTotalAmount] = useState(null);
   const [shippingInfo, setShippingInfo] = useState(null);
-  const [paymentInfo, setPaymentInfo] = useState({
-    razorpayPaymentId: "",
-    razorpayOrderId: "",
-  });
+  // const [paymentInfo, setPaymentInfo] = useState({
+  //   razorpayPaymentId: "",
+  //   razorpayOrderId: "",
+  // });
   const [cartProductState, setCartProductState] = useState([]);
-  console.log(paymentInfo, shippingInfo);
+ // console.log(paymentInfo, shippingInfo);
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
@@ -86,79 +86,79 @@ const Checkout = () => {
   }, []);
 
   const checkOutHandler = async () => {
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-    if (!res) {
-      alert("Razorpay SDK failed to Load");
-      return;
-    }
+    setTimeout(() => {
+      dispatch(
+        createAnOrder({
+          totalPrice: totalAmount,
+          totalPriceAfterDiscount: totalAmount,
+          orderItems: cartProductState,
+          //  paymentInfo,
+          shippingInfo,
+        })
+      );
+    }, 300);
+    // const res = await loadScript(
+    //   "https://checkout.razorpay.com/v1/checkout.js"
+    // );
+    // if (!res) {
+    //   alert("Razorpay SDK failed to Load");
+    //   return;
+    // }
 
-    const result = await axios.post(
-      "http://localhost:5000/api/user/order/checkout",
-      { amount: totalAmount + 5 },
-      config
-    );
-    if (!result) {
-      alert("Something Went Wrong");
-      return;
-    }
+    // const result = await axios.post(
+    //   "http://localhost:5000/api/user/order/checkout",
+    //   { amount: totalAmount + 5 },
+    //   config
+    // );
+    // if (!result) {
+    //   alert("Something Went Wrong");
+    //   return;
+    // }
 
-    const { amount, id: order_id, currency } = result.data.order;
-    console.log(amount);
-    const options = {
-      key: "", // Enter the Key ID generated from the Dashboard
-      amount: amount,
-      currency: currency,
-      name: "Infinity",
-      description: "Test Transaction",
+    // const { amount, id: order_id, currency } = result.data.order;
+    // console.log(amount);
+    // const options = {
+    //   key: "", // Enter the Key ID generated from the Dashboard
+    //   amount: amount,
+    //   currency: currency,
+    //   name: "Infinity",
+    //   description: "Test Transaction",
 
-      order_id: order_id,
-      handler: async function (response) {
-        const data = {
-          orderCreationId: order_id,
-          razorpayPaymentId: response.razorpay_payment_id,
-          razorpayOrderId: response.razorpay_order_id,
-        };
+    //   order_id: order_id,
+    //   handler: async function (response) {
+    //     const data = {
+    //       orderCreationId: order_id,
+    //       razorpayPaymentId: response.razorpay_payment_id,
+    //       razorpayOrderId: response.razorpay_order_id,
+    //     };
 
-        const result = await axios.post(
-          "http://localhost:5000/api/user/order/paymentVerification",
-          data,
-          config
-        );
+    //     const result = await axios.post(
+    //       "http://localhost:5000/api/user/order/paymentVerification",
+    //       data,
+    //       config
+    //     );
 
-        await setPaymentInfo({
-          razorpayPaymentId: response.razorpayPaymentId,
-          razorpayOrderId: response.razorpayOrderId,
-        });
+    //     await setPaymentInfo({
+    //       razorpayPaymentId: response.razorpayPaymentId,
+    //       razorpayOrderId: response.razorpayOrderId,
+    //     });
 
-        setTimeout(() => {
-          dispatch(
-            createAnOrder({
-              totalPrice: totalAmount,
-              totalPriceAfterDiscount: totalAmount,
-              orderItems: cartProductState,
-              paymentInfo,
-              shippingInfo,
-            })
-          );
-        }, 300);
-      },
-      prefill: {
-        name: "Infinity",
-        email: "sristy@example.com",
-        contact: "9999999999",
-      },
-      notes: {
-        address: "Infinity Office",
-      },
-      theme: {
-        color: "#61dafb",
-      },
-    };
+    //   },
+    //   prefill: {
+    //     name: "Infinity",
+    //     email: "sristy@example.com",
+    //     contact: "9999999999",
+    //   },
+    //   notes: {
+    //     address: "Infinity Office",
+    //   },
+    //   theme: {
+    //     color: "#61dafb",
+    //   },
+    // };
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+    // const paymentObject = new window.Razorpay(options);
+    // paymentObject.open();
   };
 
   return (
