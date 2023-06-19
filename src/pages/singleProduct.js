@@ -30,8 +30,8 @@ const SingleProduct = () => {
   const productState = useSelector((state) => state?.product?.singleproduct);
   const productsState = useSelector((state) => state?.product?.product);
   const cartState = useSelector((state) => state?.auth?.cartProducts);
-  console.log(` fucking s0tate  ${productsState}`);
-  console.log(` fucking id is ${getProductId}`);
+  // console.log(` fucking s0tate  ${productsState}`);
+  // console.log(` fucking id is ${getProductId}`);
 
   useEffect(() => {
     dispatch(getAProduct(getProductId));

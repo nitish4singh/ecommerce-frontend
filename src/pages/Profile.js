@@ -21,7 +21,7 @@ const profileSchema = yup.object({
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.auth.user);
+  const userState = useSelector((state) => state?.auth?.user);
   const [edit, setEdit] = useState(true);
 
   const formik = useFormik({
